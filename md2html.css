@@ -2,7 +2,7 @@
 /* pandoc --standalone=true --output=./test.html --mathjax --css=./md2html.css --lua-filter=./admonition.lua --number-sections=true markPre.md */
 
 @import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Noto+Serif+SC:wght@200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Amarante&family=ZCOOL+KuaiLe&display=swap");
 
 :root {
@@ -45,7 +45,7 @@
 
   --font-size-root: 16px;
   --font-size-caption: 1.1rem;
-  --font-family-normal: "Merriweather", "Noto Serif SC", serif;
+  --font-family-normal: "Merriweather", "Noto Serif", serif;
   --font-family-header: "Amarante", "ZCOOL KuaiLe", serif;
   --font-family-code: "Anonymous Pro", monospace;
 
