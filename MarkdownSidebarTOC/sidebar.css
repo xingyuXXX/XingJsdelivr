@@ -1,0 +1,246 @@
+:root {
+  --sidebar-width: 12rem;
+}
+
+@media screen and (max-width: 768px) {
+  body:not(.sidebar-collapsed) {
+    padding-left: 0.5rem !important;
+  }
+
+  #sidebar {
+    width: 80vw !important;
+    z-index: 10001;
+  }
+
+  #sidebar-resize-handle {
+    display: none;
+  }
+}
+
+body:not(.sidebar-collapsed) {
+  padding-left: calc(var(--sidebar-width) + 0.5rem);
+  transition: padding-left 0.3s linear;
+}
+body.sidebar-collapsed #sidebar {
+  transform: translateX(-100%);
+}
+
+#sidebar {
+  /* 1. 标题颜色 */
+  --color-h1: rgb(var(--color-header-h1, 255, 0, 0));
+  --color-h2: rgb(var(--color-header-h2, 255, 165, 0));
+  --color-h3: rgb(var(--color-header-h3, 0, 128, 0));
+  --color-h4: rgb(var(--color-header-h4, 0, 0, 255));
+  --color-h5: rgb(var(--color-header-h5, 0, 255, 255));
+  --color-h6: rgb(var(--color-header-h6, 128, 0, 128));
+
+  /* 2. 带透明度的背景颜色用于 hover/active 背景 */
+  --color-h1-bg: rgba(var(--color-header-h1, 255, 0, 0), 0.4);
+  --color-h2-bg: rgba(var(--color-header-h2, 255, 165, 0), 0.4);
+  --color-h3-bg: rgba(var(--color-header-h3, 0, 128, 0), 0.4);
+  --color-h4-bg: rgba(var(--color-header-h4, 0, 0, 255), 0.4);
+  --color-h5-bg: rgba(var(--color-header-h5, 0, 255, 255), 0.4);
+  --color-h6-bg: rgba(var(--color-header-h6, 128, 0, 128), 0.4);
+
+  /* 3. 其他颜色变量 */
+  --sidebar-bg: var(--color-sidebar-bg, #f8f8f8);
+  --sidebar-border: #ddd;
+  --link-color: #333;
+
+  --resize-handle-bg: #ddd;
+  --resize-handle-hover-bg: #ccc;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100%;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  transition:
+    transform 0.3s linear,
+    width 0.3s linear;
+  /* z-index: 9999; */
+}
+
+.sidebar-content {
+  height: 100%;
+  overflow-y: auto;
+  padding: 0px 5px 5px 8px;
+  scrollbar-width: none; /* Firefox */
+}
+
+/* ------------------- TOC List ------------------- */
+.sidebar-content nav ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.sidebar-content nav li {
+  margin: 1px 0;
+  position: relative;
+}
+.sidebar-content nav li[data-level="1"] {
+  padding-left: 1px;
+}
+.sidebar-content nav li[data-level]:not([data-level="1"]) {
+  padding-left: 1em;
+}
+.sidebar-content nav li > a {
+  display: block;
+  text-decoration: none;
+  color: var(--link-color);
+  font-size: 14px;
+  padding: 3px 0;
+  border-radius: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.sidebar-content nav li[data-level="1"] > a {
+  font-weight: bold;
+}
+/* hover/active 背景色 */
+.sidebar-content nav li[data-level] a:is(:hover, .active) {
+  background-color: var(--color-h1-bg);
+}
+.sidebar-content nav li[data-level="2"] a:is(:hover, .active) {
+  background-color: var(--color-h2-bg);
+}
+.sidebar-content nav li[data-level="3"] a:is(:hover, .active) {
+  background-color: var(--color-h3-bg);
+}
+.sidebar-content nav li[data-level="4"] a:is(:hover, .active) {
+  background-color: var(--color-h4-bg);
+}
+.sidebar-content nav li[data-level="5"] a:is(:hover, .active) {
+  background-color: var(--color-h5-bg);
+}
+.sidebar-content nav li[data-level="6"] a:is(:hover, .active) {
+  background-color: var(--color-h6-bg);
+}
+
+/* ------------------- Active Siblings Guide Line ------------------- */
+.sidebar-content nav ul.active-siblings > li::before {
+  content: "";
+  position: absolute;
+  left: 0.6em;
+  top: 3px;
+  bottom: 3px;
+  width: 2px;
+}
+.sidebar-content nav ul.active-siblings > li[data-level="1"]::before {
+  left: -0.2em;
+}
+.sidebar-content nav ul.active-siblings > li[data-level]::before {
+  background: var(--color-h1);
+}
+.sidebar-content nav ul.active-siblings > li[data-level="2"]::before {
+  background: var(--color-h2);
+}
+.sidebar-content nav ul.active-siblings > li[data-level="3"]::before {
+  background: var(--color-h3);
+}
+.sidebar-content nav ul.active-siblings > li[data-level="4"]::before {
+  background: var(--color-h4);
+}
+.sidebar-content nav ul.active-siblings > li[data-level="5"]::before {
+  background: var(--color-h5);
+}
+.sidebar-content nav ul.active-siblings > li[data-level="6"]::before {
+  background: var(--color-h6);
+}
+
+/* ------------------- Active Ancestor Underline ------------------- */
+.sidebar-content nav li[class*="active-ancestor"] > a {
+  text-decoration-line: underline;
+  text-decoration-style: double;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+.sidebar-content nav li.active-ancestor-l2[data-level="1"] > a {
+  text-decoration-color: var(--color-h2);
+}
+.sidebar-content nav li.active-ancestor-l3[data-level="2"] > a {
+  text-decoration-color: var(--color-h3);
+}
+.sidebar-content nav li.active-ancestor-l4[data-level="3"] > a {
+  text-decoration-color: var(--color-h4);
+}
+.sidebar-content nav li.active-ancestor-l5[data-level="4"] > a {
+  text-decoration-color: var(--color-h5);
+}
+.sidebar-content nav li.active-ancestor-l6[data-level="5"] > a {
+  text-decoration-color: var(--color-h6);
+}
+
+/* ------------------- TOC Toggle Button ------------------- */
+#sidebar-toggle-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 10000;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+#sidebar-toggle-btn:hover {
+  background-color: #555;
+}
+
+/* ------------------- Sidebar Resize Handle ------------------- */
+#sidebar-resize-handle {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 5px;
+  height: 100%;
+  cursor: col-resize;
+  background: transparent;
+  transition: background 0.3s linear;
+}
+#sidebar-resize-handle:hover {
+  background: var(--resize-handle-hover-bg);
+}
+
+/* ------------------- Heading Level Indicator ------------------- */
+.heading-level-indicator {
+  /* position: sticky; */
+  /* top: 0; */
+  /* z-index: 1; */
+  background: var(--sidebar-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 4px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.level-line {
+  height: 3px;
+  flex-grow: 1;
+  margin: 0 4px;
+}
+.level-line[data-level="1"] {
+  background: var(--color-h1);
+}
+.level-line[data-level="2"] {
+  background: var(--color-h2);
+}
+.level-line[data-level="3"] {
+  background: var(--color-h3);
+}
+.level-line[data-level="4"] {
+  background: var(--color-h4);
+}
+.level-line[data-level="5"] {
+  background: var(--color-h5);
+}
+.level-line[data-level="6"] {
+  background: var(--color-h6);
+}
