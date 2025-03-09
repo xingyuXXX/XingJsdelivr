@@ -288,7 +288,7 @@ table caption {
   font-weight: 700;
   text-align: center;
 }
-td > p {
+td p {
   margin: 0;
   padding: 0;
 }
@@ -296,7 +296,9 @@ td ul,
 td ol {
   margin: 0;
 }
-th img,
+td blockquote {
+  margin: calc(var(--margin-box-y) / 2) 0;
+}
 td img {
   display: block;
   margin: 0 auto;
