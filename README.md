@@ -17,7 +17,7 @@ Personal CDN with JSdelivr.
 A css used for `pandoc` conversion from markdown to html.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xingyuXXX/XingJsdelivr@master/Pandoc/pandoc.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xingyuXXX/XingJsdelivr@master/Pandoc/md2html.css" />
 ```
 
 ## MarkdownSidebarTOC
