@@ -30,7 +30,7 @@
   --color-admonition-border-important: 152, 0, 227; /* #9800e3 */
   --color-admonition-border-caution: 255, 102, 102; /* #ff6666 */
 
-  --color-table-header-bg: rgba(255, 218, 185, 0.4);
+  --color-table-header-bg: #f9e8cb;
   --color-table-even-row-bg: #eceae4;
   --color-table-odd-row-bg: #ffffff;
   --color-table-hover-bg: var(--color-highlight-bg);
