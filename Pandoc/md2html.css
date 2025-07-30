@@ -173,28 +173,36 @@ blockquote p {
 /* ========================== Admonitions ========================== */
 .admonition {
   margin: var(--margin-box-y) 0;
-  padding: var(--padding-box-xy);
   border-left: 4px solid;
   border-radius: var(--border-box-radius);
   box-shadow: var(--shadow-box);
   color: rgb(var(--color-text-quote));
-  display: flex;
-  align-items: flex-start;
+  position: relative;
+  padding: var(--padding-box-xy) var(--padding-box-xy) var(--padding-box-xy) calc(var(--padding-box-xy) /* 原有的左内边距 */ + 1em /* icon 宽度 */ + 0.5em /* icon 和正文间的 gap */);
+  display: block;
 }
+.admonition ul,
+.admonition ol,
 .admonition p {
   margin: 0;
   padding: 0;
-  min-width: 0;
+}
+.admonition ul,
+.admonition ol {
+  padding-left: 1em;
+  list-style-position: inside;
 }
 .admonition::before {
   content: "";
+  width: 1em;
+  height: 1em;
   background-repeat: no-repeat;
   background-position: left top;
   background-size: 1em;
-  width: 1em;
-  height: 1em;
-  margin-right: 0.5em;
-  flex-shrink: 0;
+  position: absolute;
+  top: var(--padding-box-xy);
+  left: var(--padding-box-xy);
+  margin: 0;
 }
 .admonition.tip {
   border-color: rgb(var(--color-admonition-border-tip));
