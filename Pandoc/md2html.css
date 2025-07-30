@@ -36,6 +36,7 @@
 
   --padding-box-xy: 0.5rem;
   --margin-box-y: 1rem;
+  --icon-width: 1em;
 
   --border-table: 1px solid rgb(var(--color-text-quote));
   --border-box-radius: 4px;
@@ -127,7 +128,6 @@ pre code {
   gap: var(--gap-block-pair-item);
   margin: var(--margin-box-y) 0;
 }
-/* TODO: make block-pair-item also a flex container (column) */
 .block-pair-item {
   display: block;
   flex: 0 1 auto;
@@ -178,24 +178,18 @@ blockquote p {
   box-shadow: var(--shadow-box);
   color: rgb(var(--color-text-quote));
   position: relative;
-  padding: var(--padding-box-xy) var(--padding-box-xy) var(--padding-box-xy) calc(var(--padding-box-xy) /* 原有的左内边距 */ + 1em /* icon 宽度 */ + 0.5em /* icon 和正文间的 gap */);
+  padding: var(--padding-box-xy) var(--padding-box-xy) var(--padding-box-xy) calc(var(--padding-box-xy) * 2 + var(--icon-width));
   display: block;
 }
 .admonition ul,
 .admonition ol,
 .admonition p {
   margin: 0;
-  padding: 0;
-}
-.admonition ul,
-.admonition ol {
-  padding-left: 1em;
-  list-style-position: inside;
 }
 .admonition::before {
   content: "";
-  width: 1em;
-  height: 1em;
+  width: var(--icon-width);
+  height: var(--icon-width);
   background-repeat: no-repeat;
   background-position: left top;
   background-size: 1em;
