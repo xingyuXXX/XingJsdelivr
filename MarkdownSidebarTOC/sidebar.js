@@ -58,6 +58,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const { tocContainer, toggleBtn, sidebar, resizeHandle } = createSidebar();
 
+  function focusPrimaryContent() {
+    const focusTarget =
+      document.querySelector("main, article, [data-main-content], #content, .markdown-body") || document.body;
+    let tempTabIndexApplied = false;
+
+    if (!focusTarget.hasAttribute("tabindex")) {
+      focusTarget.setAttribute("tabindex", "-1");
+      tempTabIndexApplied = true;
+    }
+
+    focusTarget.focus({ preventScroll: true });
+
+    if (tempTabIndexApplied) {
+      focusTarget.addEventListener(
+        "blur",
+        function cleanup() {
+          focusTarget.removeAttribute("tabindex");
+          focusTarget.removeEventListener("blur", cleanup);
+        },
+        { once: true },
+      );
+    }
+  }
+
   // 如果没有找到 #sidebar-toc 容器
   if (!tocContainer) {
     console.error("未找到 #sidebar-toc 容器，请确保JS中动态创建该元素。");
@@ -243,6 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
   tocContainer.addEventListener("click", function (e) {
     if (e.target.tagName.toLowerCase() === "a") {
       highlightCurrentHeading();
+      focusPrimaryContent();
       if (isMobileView()) {
         document.body.classList.add("sidebar-collapsed");
       }
