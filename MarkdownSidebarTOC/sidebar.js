@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const sidebarContent = document.createElement("div");
     sidebarContent.className = "sidebar-content";
+    sidebarContent.setAttribute("tabindex", "-1");
 
     const tocContainer = document.createElement("nav");
     tocContainer.id = "sidebar-toc";
@@ -49,14 +50,14 @@ document.addEventListener("DOMContentLoaded", function () {
       { passive: false },
     );
 
-    return { tocContainer, toggleBtn, sidebar, resizeHandle };
+    return { tocContainer, toggleBtn, sidebar, resizeHandle, sidebarContent };
   }
 
   function isMobileView() {
     return window.matchMedia("(max-width: 768px)").matches;
   }
 
-  const { tocContainer, toggleBtn, sidebar, resizeHandle } = createSidebar();
+  const { tocContainer, toggleBtn, sidebar, resizeHandle, sidebarContent } = createSidebar();
 
   function focusPrimaryContent() {
     const focusTarget =
@@ -80,6 +81,18 @@ document.addEventListener("DOMContentLoaded", function () {
         { once: true },
       );
     }
+  }
+
+  function focusSidebar() {
+    if (document.body.classList.contains("sidebar-collapsed")) {
+      document.body.classList.remove("sidebar-collapsed");
+    }
+    sidebarContent.focus({ preventScroll: true });
+  }
+
+  function isTypingField(target) {
+    const tag = target.tagName.toLowerCase();
+    return ["input", "textarea", "select", "button"].includes(tag) || target.isContentEditable;
   }
 
   // 如果没有找到 #sidebar-toc 容器
@@ -233,7 +246,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // 尝试将当前active链接滚动到视图中间
-        const sidebarContent = document.querySelector(".sidebar-content");
         if (sidebarContent) {
           const linkRect = currentLink.getBoundingClientRect();
           const sidebarRect = sidebarContent.getBoundingClientRect();
@@ -283,6 +295,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // 切换侧边栏显隐
   toggleBtn.addEventListener("click", function () {
     document.body.classList.toggle("sidebar-collapsed");
+  });
+
+  // Enter 键快速聚焦侧边栏，便于上下键滚动目录
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    if (isTypingField(e.target)) return;
+    e.preventDefault();
+    focusSidebar();
   });
 
   /* 

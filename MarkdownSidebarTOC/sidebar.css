@@ -69,6 +69,11 @@ body.sidebar-collapsed #sidebar {
   padding: 0px 5px 5px 8px;
   scrollbar-width: none; /* Firefox */
 }
+.sidebar-content:focus {
+  outline: 3px solid var(--color-h1);
+  outline-offset: -4px;
+  box-shadow: 0 0 0 3px var(--color-h1-bg);
+}
 
 /* ------------------- TOC List ------------------- */
 .sidebar-content nav ul {
