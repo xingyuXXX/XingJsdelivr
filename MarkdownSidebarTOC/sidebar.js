@@ -58,6 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const { tocContainer, toggleBtn, sidebar, resizeHandle, sidebarContent } = createSidebar();
+  // 默认隐藏侧边栏 TOC
+  document.body.classList.add("sidebar-collapsed");
 
   function focusPrimaryContent() {
     const focusTarget =
@@ -84,9 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function focusSidebar() {
-    if (document.body.classList.contains("sidebar-collapsed")) {
-      document.body.classList.remove("sidebar-collapsed");
-    }
     sidebarContent.focus({ preventScroll: true });
   }
 
@@ -280,9 +279,15 @@ document.addEventListener("DOMContentLoaded", function () {
     if (e.target.tagName.toLowerCase() === "a") {
       highlightCurrentHeading();
       focusPrimaryContent();
-      if (isMobileView()) {
-        document.body.classList.add("sidebar-collapsed");
-      }
+      document.body.classList.add("sidebar-collapsed");
+    }
+  });
+
+  // Vimium 触发链接时可能不走点击分支，监听 hash 变化兜底
+  window.addEventListener("hashchange", function () {
+    if (!document.body.classList.contains("sidebar-collapsed")) {
+      document.body.classList.add("sidebar-collapsed");
+      focusPrimaryContent();
     }
   });
 
@@ -297,12 +302,18 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.toggle("sidebar-collapsed");
   });
 
-  // Enter 键快速聚焦侧边栏，便于上下键滚动目录
+  // Enter 键切换侧边栏 TOC
   document.addEventListener("keydown", function (e) {
     if (e.key !== "Enter" || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
     if (isTypingField(e.target)) return;
     e.preventDefault();
-    focusSidebar();
+    const isCollapsed = document.body.classList.contains("sidebar-collapsed");
+    document.body.classList.toggle("sidebar-collapsed");
+    if (isCollapsed) {
+      focusSidebar();
+    } else {
+      focusPrimaryContent();
+    }
   });
 
   /* 
@@ -345,9 +356,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       sidebar.style.width = newWidthRem + "rem";
-      if (!document.body.classList.contains("sidebar-collapsed")) {
-        document.body.style.paddingLeft = `calc(${newWidthRem}rem + 0.5rem)`;
-      }
     });
   }
 

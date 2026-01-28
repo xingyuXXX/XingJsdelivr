@@ -1,12 +1,8 @@
 :root {
-  --sidebar-width: 12rem;
+  --sidebar-width: 14rem;
 }
 
 @media screen and (max-width: 768px) {
-  body:not(.sidebar-collapsed) {
-    padding-left: 0.5rem !important;
-  }
-
   #sidebar {
     width: 80vw !important;
     z-index: 10001;
@@ -15,11 +11,6 @@
   #sidebar-resize-handle {
     display: none;
   }
-}
-
-body:not(.sidebar-collapsed) {
-  padding-left: calc(var(--sidebar-width) + 0.5rem);
-  transition: padding-left 0.3s linear;
 }
 body.sidebar-collapsed #sidebar {
   transform: translateX(-100%);
@@ -60,7 +51,8 @@ body.sidebar-collapsed #sidebar {
   transition:
     transform 0.3s linear,
     width 0.3s linear;
-  /* z-index: 9999; */
+  z-index: 10000;
+  box-shadow: 8px 0 18px rgba(0, 0, 0, 0.18);
 }
 
 .sidebar-content {
@@ -70,9 +62,8 @@ body.sidebar-collapsed #sidebar {
   scrollbar-width: none; /* Firefox */
 }
 .sidebar-content:focus {
-  outline: 3px solid var(--color-h1);
-  outline-offset: -4px;
-  box-shadow: 0 0 0 3px var(--color-h1-bg);
+  outline: none;
+  box-shadow: none;
 }
 
 /* ------------------- TOC List ------------------- */
