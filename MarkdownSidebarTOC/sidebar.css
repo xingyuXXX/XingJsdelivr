@@ -49,7 +49,7 @@ body.sidebar-collapsed #sidebar {
   background-color: var(--sidebar-bg);
   border-right: 1px solid var(--sidebar-border);
   transition:
-    transform 0.3s linear,
+    transform 0.15s ease-out,
     width 0.3s linear;
   z-index: 10000;
   box-shadow: 8px 0 18px rgba(0, 0, 0, 0.18);
