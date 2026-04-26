@@ -62,8 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.body.classList.add("sidebar-collapsed");
 
   function focusPrimaryContent() {
-    const focusTarget =
-      document.querySelector("main, article, [data-main-content], #content, .markdown-body") || document.body;
+    const focusTarget = document.querySelector("main, article, [data-main-content], #content, .markdown-body") || document.body;
     let tempTabIndexApplied = false;
 
     if (!focusTarget.hasAttribute("tabindex")) {
